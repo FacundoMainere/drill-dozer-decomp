@@ -1,0 +1,4 @@
+*.gba
+tools/agbcc
+__pycache__/
+funcs.csv
