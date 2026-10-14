@@ -43,6 +43,10 @@ Built with their own flags (`[function_cflags]` in `pool.toml`):
 | 0802BE10 | `push {lr}; b .` infinite loop; no `-fprologue-bugfix` | #132 |
 | 0805DF60 | leaf `return 76` that still pushes lr; no `-fprologue-bugfix` | #341 |
 | 0805BC58 | leaf abs that still pushes lr; no `-fprologue-bugfix` | #1525 |
+| 08093930 | leaf conditional store that still pushes lr; no `-fprologue-bugfix` | #2227 |
+| 0809F21C | leaf compare-and-store byte that still pushes lr; no `-fprologue-bugfix` | #2227 |
+| 08015F70 | leaf s16 divide by 16 that still pushes lr; no `-fprologue-bugfix` | #2227 |
+| 08044A28 | leaf byte compare (`p[0x82] == 4`) that still pushes lr; no `-fprologue-bugfix` | #2227 |
 
 ## Log
 

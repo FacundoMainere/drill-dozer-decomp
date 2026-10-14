@@ -13,10 +13,14 @@ trusted = []
 
 [function_cflags]
 # Functions whose original file was built with other flags; these replace cflags for them.
-# Built without -fprologue-bugfix: a jump seen at reload makes even a leaf push lr (#132, #341, #1525).
+# Built without -fprologue-bugfix: a jump seen at reload makes even a leaf push lr (#132, #341, #1525, #2227).
+08015F70 = ["-mthumb-interwork", "-Wimplicit", "-Wparentheses", "-O2", "-fhex-asm"]
 0802BE10 = ["-mthumb-interwork", "-Wimplicit", "-Wparentheses", "-O2", "-fhex-asm"]
-0805BC58 = ["-mthumb-interwork", "-Wimplicit", "-Wparentheses", "-O2", "-fhex-asm"]
+08044A28 = ["-mthumb-interwork", "-Wimplicit", "-Wparentheses", "-O2", "-fhex-asm"]
+0805BC58 =["-mthumb-interwork", "-Wimplicit", "-Wparentheses", "-O2", "-fhex-asm"]
 0805DF60 = ["-mthumb-interwork", "-Wimplicit", "-Wparentheses", "-O2", "-fhex-asm"]
+08093930 = ["-mthumb-interwork", "-Wimplicit", "-Wparentheses", "-O2", "-fhex-asm"]
+0809F21C = ["-mthumb-interwork", "-Wimplicit", "-Wparentheses", "-O2", "-fhex-asm"]
 
 [aliases]
 # Library functions agbcc calls by name, at their ROM address.
