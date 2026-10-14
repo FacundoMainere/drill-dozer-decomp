@@ -2,8 +2,12 @@
 
 Target: Drill Dozer (USA) `V49E`, SHA1 `c1058cc2482b91204100cc8515da99aeb06773f5`
 
-The maintainer keeps this file; contributors don't edit it. To get the current numbers, run
-`python3 tools/pool.py progress`.
+The maintainer keeps this file; contributors don't edit it. The hourly "Expire claims"
+workflow keeps the line below current (`python3 tools/pool.py progress --write`); leave the
+markers in place.
+
+<!-- progress:start -->
+<!-- progress:end -->
 
 ## Setup (docs/NEW_PROJECT.md)
 
