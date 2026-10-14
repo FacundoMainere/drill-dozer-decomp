@@ -1,7 +1,7 @@
-# decomp-pool
+# Drill Dozer decomp pool
 
-A template for matching decompilations that anyone can contribute to, by hand or by pointing
-their own AI agent at the repository. Contributors need no write access: they claim
+A matching decompilation of Drill Dozer (USA, GBA, SHA1 `c1058cc2482b91204100cc8515da99aeb06773f5`)
+that anyone invited can contribute to, by hand or by pointing their own AI agent at the repository. Contributors need no write access: they claim
 functions, solve them and release them through pull requests that GitHub Actions validates
 and merges automatically. Nobody spends tokens or time reviewing routine contributions.
 

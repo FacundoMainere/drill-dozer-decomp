@@ -6,8 +6,28 @@ timestamp_skew_min = 15  # claim timestamp must be within this many minutes of t
 max_source_bytes = 20000
 compiler = "tools/agbcc/bin/agbcc"
 cflags = ["-mthumb-interwork", "-Wimplicit", "-Wparentheses", "-O2", "-fhex-asm", "-fprologue-bugfix"]
-rom_sha1 = ""            # set by tools/setup.py
+rom_sha1 = "c1058cc2482b91204100cc8515da99aeb06773f5"            # set by tools/setup.py
 
 [aliases]
-# Library functions agbcc calls by name, at their ROM address, e.g.
-# __divsi3 = 0x080561A0
+# Library functions agbcc calls by name, at their ROM address.
+__divsi3 = 0x080F8FF0
+__modsi3 = 0x080F90BC
+__udivsi3 = 0x080F91FC
+__umodsi3 = 0x080F9274
+memcpy = 0x080FAA68
+memset = 0x080FAAC8
+_call_via_r0 = 0x080F8FB4
+_call_via_r1 = 0x080F8FB8
+_call_via_r2 = 0x080F8FBC
+_call_via_r3 = 0x080F8FC0
+_call_via_r4 = 0x080F8FC4
+_call_via_r5 = 0x080F8FC8
+_call_via_r6 = 0x080F8FCC
+_call_via_r7 = 0x080F8FD0
+_call_via_r8 = 0x080F8FD4
+_call_via_r9 = 0x080F8FD8
+_call_via_sl = 0x080F8FDC
+_call_via_fp = 0x080F8FE0
+_call_via_ip = 0x080F8FE4
+_call_via_sp = 0x080F8FE8
+_call_via_lr = 0x080F8FEC
