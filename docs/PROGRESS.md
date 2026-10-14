@@ -60,3 +60,5 @@ Still listed but unmatchable with the pool's flags (skipped by the coordinator, 
   added after review; tips are never added without a malicious-content and evidence check.
 - 2026-10-14: The hourly progress workflow never fired on its schedule after the transfer
   (only manual runs); the progress line was refreshed by hand.
+- 2026-10-14: 4088 / 1014024 bytes solved (0.40%), 573 / 9487 functions; 4- to 12-byte stubs and wrappers mostly done. T16 extended (8-byte struct copies)
+  and T432 (0xFFFF halfword stores) added after review. Coordinator loop paused.
