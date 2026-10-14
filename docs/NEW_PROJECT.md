@@ -120,8 +120,8 @@ Delete rows nobody can solve in this pool:
   `compiler` and `cflags` from `pool.toml`. Medabots AX also had `old_agbcc` files (leaf
   functions ending in a bare `bx lr` where agbcc would `push {lr}`/`pop`), `-O1` save-library
   code (flash / EEPROM / timer), and newlib built with `-mno-thumb-interwork` (`pop {..., pc}`
-  with no `bx`). If you find a group like that, remove it from the pool; per-function compiler
-  settings are not supported yet.
+  with no `bx`). If you find a group like that, give its functions their flags under
+  `[function_cflags]` in `pool.toml` (a full replacement for `cflags`), or remove it from the pool.
 
 ## 8. Library aliases
 

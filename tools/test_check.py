@@ -157,6 +157,15 @@ class BuildTest(unittest.TestCase):
         self.set_func("08000100", 20, "0" * 40)
         self.assertRejects(CALL, "NO MATCH")
 
+    def test_function_cflags(self):
+        loop = bytes([0x00, 0xB5, 0xFE, 0xE7])
+        self.set_func("08000100", 4, hashlib.sha1(loop).hexdigest())
+        text = "void func_08000100(void) {\n    while (1)\n        ;\n}\n"
+        self.assertRejects(text, "NO MATCH")
+        flags = [f for f in self.cfg["cflags"] if f != "-fprologue-bugfix"]
+        self.cfg["function_cflags"] = {"08000100": flags}
+        self.assertEqual(self.solve(text), [])
+
     def test_data_rejected(self):
         self.assertRejects(
             "static const unsigned short code[] = {0x4770};\n\n"

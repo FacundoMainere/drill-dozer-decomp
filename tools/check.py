@@ -104,7 +104,8 @@ def build(path, addr, root, cfg, d):
     pp = run(["cpp", "-nostdinc", "-undef", "-I", os.path.join(root, "include"),
               "-I", os.path.join(root, "tools", "agbcc", "include"), path])
     s, o, so, elf, b = (os.path.join(d, x) for x in ("f.s", "f.o", "syms.o", "f.elf", "f.bin"))
-    run([os.path.join(root, cfg["compiler"])] + cfg["cflags"] + ["-o", s], input=pp)
+    cflags = cfg.get("function_cflags", {}).get("%08X" % addr, cfg["cflags"])
+    run([os.path.join(root, cfg["compiler"])] + cflags + ["-o", s], input=pp)
     with open(s, "a") as f:
         f.write("\t.align 2, 0\n")
     run(["arm-none-eabi-as", "-mcpu=arm7tdmi", "-o", o, s])
