@@ -17,6 +17,8 @@ markers in place.
 - [x] Code region end found: 0x080FAB1C
 - [x] `functions.csv` generated (9227 functions, 0x0800024C-0x080F8FB4), `rom_sha1` set
 - [x] Boundaries fixed: two long-branch fake starts merged into 0x0808738C and 0x080894DC
+- [x] Six rows starting on literal-pool data fixed (PR #82)
+- [x] 264 missed leaf-function starts split out (PR #276): 9224 -> 9488 rows
 - [x] Unsolvable rows removed (see Exceptions)
 - [x] Library aliases in `pool.toml` (libgcc division, memcpy, memset, `_call_via_*`)
 - [x] Functions matched locally
@@ -34,6 +36,13 @@ markers in place.
 | 080F8964-080F8DE4 | SRAM save library | Built with different flags |
 | 080F8FB4-080FAB1C | libgcc (`_call_via_*`, division), newlib | Hand-written asm / other flags |
 
+Still listed but unmatchable with the pool's flags (skipped by the coordinator, left for the endgame):
+
+| Function | What | Issue |
+|---|---|---|
+| 0802BE10 | `push {lr}; b .` infinite loop; matches only without `-fprologue-bugfix` | #132 |
+| 0805DF60 | leaf `return 76` that still pushes lr; no flag set tried reproduces it | #341 |
+
 ## Log
 
 - 2026-10-13: Pool created, loop tested end to end.
@@ -42,3 +51,12 @@ markers in place.
   getters, setters and stubs, smallest first) and released 1, all through PRs, with no claims
   left open and no strikes. 08010DE0 is data, not a function; PR #82 fixes it and five other
   boundaries.
+- 2026-10-14: Repo moved to the TrashSlopStudio org (read-only collaborators need an org), then
+  made public when private Actions minutes ran low (~900 of 2000 used in a few hours, about
+  4-5 billed minutes per function). Going public detached the private fork; a new fork fixed it.
+- 2026-10-14: Contributor `/loop` running 5 workers (3 functions each, then replaced) and the
+  maintainer `/loop` every 3h. ~265 functions solved, almost all 4-12 byte accessors; 2
+  unmatchable functions skipped. Tips T430 (offsets split as +124) and T431 (tail self-calls)
+  added after review; tips are never added without a malicious-content and evidence check.
+- 2026-10-14: The hourly progress workflow never fired on its schedule after the transfer
+  (only manual runs); the progress line was refreshed by hand.
