@@ -10,6 +10,10 @@ rom_sha1 = "c1058cc2482b91204100cc8515da99aeb06773f5"            # set by tools/
 # GitHub logins (besides the maintainer) whose boundary PRs and tips are accepted without
 # manual review. Only claims, releases and solves are verified and merged by CI.
 trusted = []
+# Flags a solve may use in src/func_ADDR.cflags (one line, replacing cflags for that function).
+# Only these are accepted: the flags go to the compiler in CI.
+allowed_cflags = ["-mthumb-interwork", "-mno-thumb-interwork", "-Wimplicit", "-Wparentheses",
+                  "-O0", "-O1", "-O2", "-fhex-asm", "-fprologue-bugfix"]
 
 [function_cflags]
 # Functions whose original file was built with other flags; these replace cflags for them.
