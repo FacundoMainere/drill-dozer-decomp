@@ -1,6 +1,6 @@
 # decomp-pool configuration. Changes here are maintainer-only (any PR touching it is "manual").
 max_claims = 5           # functions one user may hold at once
-claim_hours = 48         # claim lifetime; expired claims become strikes
+claim_hours = 0          # claim lifetime; expired claims become strikes
 max_strikes = 3          # expired claims before a user can no longer claim
 timestamp_skew_min = 15  # claim timestamp must be within this many minutes of the PR creation
 max_source_bytes = 20000
