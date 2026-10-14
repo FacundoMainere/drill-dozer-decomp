@@ -103,3 +103,13 @@ jobs:
           done
           gh pr comment "$PR" --repo "$REPO" --body "Could not merge. Either the PR changed after it was verified (the new commit gets its own run), or there is a conflict: someone claimed or solved this function first. In that case sync your fork and pick another function. If neither applies, push an empty commit to retry."
           exit 1
+      # Tell the dcomp tracker that main changed (claim, release or solve merged). Best effort:
+      # the tracker also polls, so a failed call only delays the update. Enabled by the repo
+      # variable DCOMP_NOTIFY=true.
+      - if: success() && needs.verify.outputs.ok == 'true' && vars.DCOMP_NOTIFY == 'true'
+        run: |
+          curl -fsS --max-time 10 -X POST -H "Authorization: Bearer $DCOMP_API_KEY" "$DCOMP_SYNC_URL" \
+            || echo "::warning::dcomp notification failed; the tracker will catch up on its next poll"
+        env:
+          DCOMP_API_KEY: ${{ secrets.DCOMP_API_KEY }}
+          DCOMP_SYNC_URL: ${{ secrets.DCOMP_SYNC_URL }}

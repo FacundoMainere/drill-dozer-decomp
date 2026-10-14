@@ -32,3 +32,11 @@ jobs:
           if [ -n "$(git log origin/main..HEAD)" ]; then
             git push || { git pull -q --rebase && git push; }
           fi
+      # Tell the dcomp tracker that claims may have expired. Best effort, the tracker also polls. Enabled by the repo variable DCOMP_NOTIFY=true.
+      - if: vars.DCOMP_NOTIFY == 'true'
+        run: |
+          curl -fsS --max-time 10 -X POST -H "Authorization: Bearer $DCOMP_API_KEY" "$DCOMP_SYNC_URL" \
+            || echo "::warning::dcomp notification failed; the tracker will catch up on its next poll"
+        env:
+          DCOMP_API_KEY: ${{ secrets.DCOMP_API_KEY }}
+          DCOMP_SYNC_URL: ${{ secrets.DCOMP_SYNC_URL }}
