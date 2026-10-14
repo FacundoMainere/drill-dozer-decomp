@@ -38,3 +38,7 @@ markers in place.
 
 - 2026-10-13: Pool created, loop tested end to end.
 - 2026-10-14: 180 / 1014024 bytes solved (0.02%), 41 / 9227 functions (smallest first).
+- 2026-10-14: First multi-agent run: 5 agents from one fork solved 40 functions (the 4-8 byte
+  getters, setters and stubs, smallest first) and released 1, all through PRs, with no claims
+  left open and no strikes. 08010DE0 is data, not a function; PR #82 fixes it and five other
+  boundaries.

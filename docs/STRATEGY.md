@@ -144,3 +144,16 @@ What it took in Medabots AX, once every function had matching C:
 ## Findings for this game
 
 Maintainers: add what you learn here (boundary surprises, compiler flavours, throughput).
+
+- **First run (5 agents, one fork):** 40 solved, 1 released, all through PRs. All 40 were the
+  smallest functions (4-8 bytes), so this says little about throughput on real functions.
+- **What went wrong:**
+  - Agents shared one scratch folder and ran each other's scripts; one ran a forced checkout
+    in another agent's worktree.
+  - Plain `claim-ADDR` branch names clashed on the shared fork, and two agents deleted a branch
+    that may have been another agent's.
+  - One solve PR lost a merge race with a simultaneous merge and had to be re-run.
+  - No work was lost. AGENTS.md now asks for a scratch folder per agent, agent-numbered
+    branches, and an empty commit to retry a lost race.
+- **Boundaries:** six bad boundaries were found during the run, including 08010DE0 (data
+  listed as a function). Fixed in PR #82.
