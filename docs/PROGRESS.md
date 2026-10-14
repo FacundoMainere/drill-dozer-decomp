@@ -36,13 +36,13 @@ markers in place.
 | 080F8964-080F8DE4 | SRAM save library | Built with different flags |
 | 080F8FB4-080FAB1C | libgcc (`_call_via_*`, division), newlib | Hand-written asm / other flags |
 
-Still listed but unmatchable with the pool's flags (skipped by the coordinator, left for the endgame):
+Built with their own flags (`[function_cflags]` in `pool.toml`):
 
 | Function | What | Issue |
 |---|---|---|
-| 0802BE10 | `push {lr}; b .` infinite loop; matches only without `-fprologue-bugfix` | #132 |
-| 0805DF60 | leaf `return 76` that still pushes lr; no flag set tried reproduces it | #341 |
-| 0805BC58 | leaf abs that still pushes lr; matches only without `-fprologue-bugfix` | #1525 |
+| 0802BE10 | `push {lr}; b .` infinite loop; no `-fprologue-bugfix` | #132 |
+| 0805DF60 | leaf `return 76` that still pushes lr; no `-fprologue-bugfix` | #341 |
+| 0805BC58 | leaf abs that still pushes lr; no `-fprologue-bugfix` | #1525 |
 
 ## Log
 
@@ -68,3 +68,6 @@ Still listed but unmatchable with the pool's flags (skipped by the coordinator, 
   contributing too. 0805BC58 skipped (same no-`-fprologue-bugfix` case as #132/#341; both
   match without the flag, per-function flags proposed in #1247). T16 extended (`long long`
   8-byte copies). Shared-login claim races and transient fetch/push errors handled by retries.
+- 2026-10-14: Per-function compiler flags added (`[function_cflags]`). 0802BE10, 0805DF60 and
+  0805BC58 match without `-fprologue-bugfix` (a jump present at reload leaves a leaf pushing
+  lr), so they are back in play and off the coordinator's skip list.
