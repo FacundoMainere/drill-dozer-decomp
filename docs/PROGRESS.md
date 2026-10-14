@@ -47,6 +47,45 @@ Built with their own flags (`[function_cflags]` in `pool.toml`):
 | 0809F21C | leaf compare-and-store byte that still pushes lr; no `-fprologue-bugfix` | #2227 |
 | 08015F70 | leaf s16 divide by 16 that still pushes lr; no `-fprologue-bugfix` | #2227 |
 | 08044A28 | leaf byte compare (`p[0x82] == 4`) that still pushes lr; no `-fprologue-bugfix` | #2227 |
+| 080E4720 | leaf store through a pointer field if non-null that still pushes lr; no `-fprologue-bugfix` | #2452 |
+| 0802FED0 | leaf s32 abs at +0x164 that still pushes lr; no `-fprologue-bugfix` | #2452 |
+| 0800B394 | leaf byte test (`p[10] != 0`) that still pushes lr; no `-fprologue-bugfix` | #2452 |
+| 08056084 | leaf `return g != 0` on a global that still pushes lr; no `-fprologue-bugfix` | #2882 |
+| 0800B234 | leaf masked u16 test that still pushes lr; no `-fprologue-bugfix` | #2844 |
+| 0801C0B4 | leaf byte read through a nullable pointer field that still pushes lr; no `-fprologue-bugfix` | #2792 |
+| 080165BC | leaf range test (`a - 53 <= 3`) that still pushes lr; no `-fprologue-bugfix` | #2705 |
+| 0800B3A8 | leaf byte test (`p[11] != 0`) that still pushes lr; no `-fprologue-bugfix` | #2664 |
+| 08002A78 | leaf u8 compare (`a > 3`) that still pushes lr; no `-fprologue-bugfix` | #2616 |
+| 0803D7FC | leaf `a ? 1 : 2` that still pushes lr; no `-fprologue-bugfix` | #2564 |
+| 080475C4 | leaf byte compare (`p[0x76] == 14`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 080C1178 | leaf u16 test (`*(u16 *)(p + 12) != 0`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 080165A8 | leaf range test (`a - 57 <= 11`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 0804E28C | leaf byte compare (`p[0x76] != 9`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 080D2208 | leaf byte test returning 1 or 4 that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 080750C0 | leaf clamp (`a - 198`, max 8) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 080E9E38 | leaf range test (`a - 7 <= 3`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 0805009C | leaf loop storing a byte through 5 pointers that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 08000E64 | leaf u8 compare (`a > 3`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 0803661C | leaf clamp to 1..3 that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 0800C18C | leaf s8 compare (`p[0xFA] != 2`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 080B44C4 | leaf range test (`a - 7 <= 3`, same bytes as 080E9E38) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 08042DA8 | leaf byte test (`p[0xF0] != 0`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 08058E1C | leaf byte test (`p[8] != 0`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 080C1F10 | leaf byte compare through a pointer at +0x7C that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 0801C09C | leaf indexed byte read through a nullable pointer that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 08070ED0 | leaf byte compare through a pointer at +0 that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 080B9C8C | leaf u16 zero test (`*(u16 *)(p + 12) == 0`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 080B953C | leaf byte zero test (`p[0x5C] == 0`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 08090A0C | leaf range test (`*(u32 *)(p + 0x28) - 4 <= 1`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 0806B864 | leaf `return g != 0` on a global (same shape as 08056084) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 0801D60C | leaf loop storing 1 through 4 pointers that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 08015F5C | leaf s16 divide by 16 (same bytes as 08015F70) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 080C1760 | leaf conditional byte clear (`if (p[14]) p[19] = 0`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 08058E08 | leaf conditional byte set (`if (p[8] == 0) p[8] = 60`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 080E73F8 | leaf s32 compare (`*(s32 *)(p + 0x7C) > 3`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 0801C084 | leaf indexed byte read through a nullable pointer (sibling of 0801C09C) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 080B66DC | leaf u16 zero test (`*(u16 *)(p + 0x1A) == 0`) that still pushes lr; no `-fprologue-bugfix` | #2498 |
+| 08005390 | leaf loop filling a 128-byte table with 0..127 that still pushes lr; no `-fprologue-bugfix` | #2498 |
 
 ## Log
 
@@ -79,3 +118,14 @@ Built with their own flags (`[function_cflags]` in `pool.toml`):
   lr verified without `-fprologue-bugfix` and put on the coordinator skip list until #2498 merges;
   080BA948 (two stubs, #2628) held as pending split. A claim PR (#2528) was rejected on re-check after
   its claim had already merged.
+- 2026-10-14: 39 more leaves that push lr added to `[function_cflags]` (080E4720, 0802FED0, 0800B394,
+  08056084, 0800B234, 0801C0B4, 080165BC, 0800B3A8, 08002A78, 0803D7FC, 080475C4, 080C1178, 080165A8, 0804E28C,
+  080D2208, 080750C0, 080E9E38,
+  0805009C, 08000E64, 0803661C, 0800C18C,
+  080B44C4, 08042DA8, 08058E1C,
+  080C1F10, 0801C09C, 08070ED0, 080B9C8C,
+  080B953C, 08090A0C, 0806B864,
+  0801D60C, 08015F5C, 080C1760,
+  08058E08, 080E73F8, 0801C084,
+  080B66DC, 08005390), each verified without
+  `-fprologue-bugfix`.
