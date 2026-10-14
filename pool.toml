@@ -13,8 +13,9 @@ trusted = []
 
 [function_cflags]
 # Functions whose original file was built with other flags; these replace cflags for them.
-# Built without -fprologue-bugfix: a jump seen at reload makes even a leaf push lr (#132, #341).
+# Built without -fprologue-bugfix: a jump seen at reload makes even a leaf push lr (#132, #341, #1525).
 0802BE10 = ["-mthumb-interwork", "-Wimplicit", "-Wparentheses", "-O2", "-fhex-asm"]
+0805BC58 = ["-mthumb-interwork", "-Wimplicit", "-Wparentheses", "-O2", "-fhex-asm"]
 0805DF60 = ["-mthumb-interwork", "-Wimplicit", "-Wparentheses", "-O2", "-fhex-asm"]
 
 [aliases]

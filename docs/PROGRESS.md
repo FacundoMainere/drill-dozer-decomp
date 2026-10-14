@@ -7,7 +7,7 @@ workflow keeps the line below current (`python3 tools/pool.py progress --write`)
 markers in place.
 
 <!-- progress:start -->
-4088 / 1014024 bytes solved (0.40%), 573 / 9487 functions
+8096 / 1014024 bytes solved (0.80%), 907 / 9487 functions
 <!-- progress:end -->
 
 ## Setup (docs/NEW_PROJECT.md)
@@ -42,6 +42,7 @@ Built with their own flags (`[function_cflags]` in `pool.toml`):
 |---|---|---|
 | 0802BE10 | `push {lr}; b .` infinite loop; no `-fprologue-bugfix` | #132 |
 | 0805DF60 | leaf `return 76` that still pushes lr; no `-fprologue-bugfix` | #341 |
+| 0805BC58 | leaf abs that still pushes lr; no `-fprologue-bugfix` | #1525 |
 
 ## Log
 
@@ -62,6 +63,11 @@ Built with their own flags (`[function_cflags]` in `pool.toml`):
   (only manual runs); the progress line was refreshed by hand.
 - 2026-10-14: 4088 / 1014024 bytes solved (0.40%), 573 / 9487 functions; 4- to 12-byte stubs and wrappers mostly done. T16 extended (8-byte struct copies)
   and T432 (0xFFFF halfword stores) added after review. Coordinator loop paused.
-- 2026-10-14: Per-function compiler flags added (`[function_cflags]`). 0802BE10 and 0805DF60
-  match without `-fprologue-bugfix` (a jump present at reload leaves a leaf pushing lr), so they
-  are back in play and off the coordinator's skip list.
+- 2026-10-14: 8120 / 1014024 bytes solved (0.80%), 909 / 9487 functions; coordinator loop
+  restarted, 5 workers through the 0803-080D range (12-byte wrappers and accessors), baldosa
+  contributing too. 0805BC58 skipped (same no-`-fprologue-bugfix` case as #132/#341; both
+  match without the flag, per-function flags proposed in #1247). T16 extended (`long long`
+  8-byte copies). Shared-login claim races and transient fetch/push errors handled by retries.
+- 2026-10-14: Per-function compiler flags added (`[function_cflags]`). 0802BE10, 0805DF60 and
+  0805BC58 match without `-fprologue-bugfix` (a jump present at reload leaves a leaf pushing
+  lr), so they are back in play and off the coordinator's skip list.
