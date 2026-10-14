@@ -75,3 +75,7 @@ Built with their own flags (`[function_cflags]` in `pool.toml`):
 - 2026-10-14: Per-function compiler flags added (`[function_cflags]`). 0802BE10, 0805DF60 and
   0805BC58 match without `-fprologue-bugfix` (a jump present at reload leaves a leaf pushing
   lr), so they are back in play and off the coordinator's skip list.
+- 2026-10-14: Tips T435-T438 added and T06, T08, T15 extended from agent reports. 10 more leaves that push
+  lr verified without `-fprologue-bugfix` and put on the coordinator skip list until #2498 merges;
+  080BA948 (two stubs, #2628) held as pending split. A claim PR (#2528) was rejected on re-check after
+  its claim had already merged.
